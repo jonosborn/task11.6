@@ -14,7 +14,7 @@ pipeline {
                       sh "scp -r ./docker-compose.yml jenkins@prod1:/home/jenkins"
                       sh "ssh jenkins@prod1 'docker-compose up -d'"
                       sh "iptables -A INPUT -p tcp --dport 8000 -j ACCEPT"
-                      sh "ssh jenkins@prod1 \'docker-compose run --rm cli wp core install --url=localhost:8000 --title="test WP" --admin_name=admin --admin_email=admin@admin.local --skip-email --admin_password=password\'"
+                      sh "ssh jenkins@prod1 \'docker-compose run --rm cli wp core install --url=localhost:8000 --title="test WP" --admin_name=admin --admin_email='admin@admin.ru' --skip-email --admin_password=password\'"
                       sh "docker-compose run --rm cli wp language core install ru_RU && docker-compose run --rm cli wp language core activate ru_RU"
                 }
             }
