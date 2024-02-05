@@ -13,7 +13,7 @@ pipeline {
                 dir ('docker'){
                       sh "scp -r ./docker-compose.yml jenkins@prod1:/home/jenkins"
                       sh "ssh jenkins@prod1 'docker-compose up -d'"
-                      sh "ssh jenkins@prod1 'sudo su iptables -A INPUT -p tcp --dport 8000 -j ACCEPT'"
+                      sh "ssh jenkins@prod1 'sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT'"
                       sh "docker-compose run --rm cli wp language core install ru_RU && docker-compose run --rm cli wp language core activate ru_RU"
                 }
             }
