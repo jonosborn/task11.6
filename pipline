@@ -1,0 +1,32 @@
+pipeline {
+    agent {
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage('Build docker image on prod') {
+            steps {
+                echo 'exec docker command for build'
+                steps{
+                    echo "============== start buildin image =============="
+                    dir ('docker'){ # директория в репо
+                        sh ssh jenkins@prod1 'docker-compose up -d'
+                    }
+                }
+            }
+        }
+        stage('Тестирование') {
+            steps {
+                echo 'Тестируем нашу сборку'
+            }
+        }
+        stage('Развертывание') {
+            steps {
+                echo 'Переносим код в рабочую среду или создаем артефакт'
+            }
+        }
+    }
+}

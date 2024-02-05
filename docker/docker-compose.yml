@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:latest
+    hostname: wp_database
+    container_name: wp_database
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      TZ: "Europe/Moscow"
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+  
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    hostname: wp_app
+    container_name: wp_app
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8000:80"
+    restart: always
+    user: www-data
+    environment:
+      TZ: "Europe/Moscow"
+      WORDPRESS_DB_HOST: ${DB_HOST}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+
+  cli:
+    depends_on:
+      - db
+      - wordpress
+    image: wordpress:cli
+    hostname: wp_cli
+    container_name: wp_cli
+    volumes:
+      - wordpress_data:/var/www/html
+    restart: "no"
+    user: www-data
+    environment:
+      TZ: "Europe/Moscow"
+      WORDPRESS_DB_HOST: ${DB_HOST}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+
+volumes:
+  db_data: {}
+  wordpress_data: {}
+

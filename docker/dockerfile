@@ -1,0 +1,8 @@
+FROM wordpress:latest
+LABEL autor="NERV"
+EXPOSE 5000/tcp
+WORKDIR /app
+ENV WORDPRESS_DB_HOST=localhost:3307 \
+    WORDPRESS_DB_USER=demo_blog \
+    WORDPRESS_DB_NAME=demo_blog \
+    WORDPRESS_TABLE_PREFIX=wp_
