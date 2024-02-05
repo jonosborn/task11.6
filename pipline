@@ -12,6 +12,7 @@ pipeline {
                 echo "============== start buildin image =============="
                 dir ('docker'){
                     sh "scp -r ./docker-compose.yml jenkins@prod1:/home/jenkins"
+                    sh "scp -r ./.env jenkins@prod1:/home/jenkins"
                     sh "ssh jenkins@prod1 'docker-compose up -d'"
                     sh "ssh jenkins@prod1 'sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT'"
                     sh "ssh jenkins@prod1 'docker-compose run --rm cli wp core install --url=localhost:8000 --title=test --admin_name=admin --admin_email=admin@dmosk.local --skip-email --admin_password=password'"
