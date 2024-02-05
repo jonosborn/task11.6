@@ -12,8 +12,8 @@ pipeline {
                 echo 'exec docker command for build'
                 steps{
                     echo "============== start buildin image =============="
-                    dir ('docker'){ # директория в репо
-                        sh ssh jenkins@prod1 'docker-compose up -d'
+                    dir ('docker'){
+                        sh 'docker build .'
                     }
                 }
             }
