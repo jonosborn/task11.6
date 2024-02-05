@@ -11,6 +11,7 @@ pipeline {
             steps {
                 echo "============== start buildin image =============="
                 dir ('docker'){
+                      sh "scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins"
                       sh "ssh jenkins@prod1 'docker-compose up -d'"
                 }
             }
