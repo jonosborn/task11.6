@@ -9,12 +9,9 @@ pipeline {
     stages {
         stage('Build docker image on prod') {
             steps {
-                echo 'exec docker command for build'
-                steps{
-                    echo "============== start buildin image =============="
-                    dir ('docker'){
-                        sh "ssh jenkins@prod1 'docker-compose up -d'"
-                    }
+                echo "============== start buildin image =============="
+                dir ('docker'){
+                      sh "ssh jenkins@prod1 'docker-compose up -d'"
                 }
             }
         }
