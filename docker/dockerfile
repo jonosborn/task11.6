@@ -2,7 +2,7 @@ FROM wordpress:latest
 LABEL autor="NERV"
 EXPOSE 5000/tcp
 WORKDIR /app
-ENV WORDPRESS_DB_HOST=localhost:3307 \
-    WORDPRESS_DB_USER=demo_blog \
-    WORDPRESS_DB_NAME=demo_blog \
+ENV WORDPRESS_DB_HOST=localhost:3306 \
+    WORDPRESS_DB_USER= \
+    WORDPRESS_DB_NAME= \
     WORDPRESS_TABLE_PREFIX=wp_
