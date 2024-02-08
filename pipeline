@@ -12,11 +12,12 @@ pipeline {
                 echo "============== start buildin image =============="
                 dir ('docker'){
                     sh """
-                    ssh jenkins@prod1 << EOF 'if [ -d '/home/jenkins/docker' ]; then
+                    ssh jenkins@prod1 << EOF
+                    if [ -d '/home/jenkins/docker' ]; then
                     echo 'directory exists!'
                     else 
                     mkdir /home/jenkins/docker
-                    fi'
+                    fi
                     EOF
                     scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml
                     scp -rp ./.env jenkins@prod1:/home/jenkins/docker/.env
