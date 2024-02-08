@@ -13,7 +13,7 @@ pipeline {
                 dir ('docker'){
                     sh """
                     scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml"
-                    scp -r ./.env jenkins@prod1:/home/jenkins/docker"                    
+                    scp -r ./.env jenkins@prod1:/home/jenkins/docker/.env"                    
                     ssh jenkins@prod1 
                     cd /home/jenkins/docker
                     docker-compose up -d
