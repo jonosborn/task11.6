@@ -25,7 +25,7 @@ pipeline {
                     cd /home/jenkins/docker
                     docker-compose up -d
                     sleep 5
-                    sudo iptables -C INPUT -s 0/0 -p tcp --dport 8000 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 8000 -j ACCEPT
+                    sudo iptables -C INPUT -s 0/0 -p tcp --dport 8000 -j ACCEPT || sudo  iptables -I INPUT -s 0/0 -p tcp --dport 8000 -j ACCEPT
                     docker-compose run --rm cli wp core install --url=http://51.250.12.141/:8000 --title=test --admin_name=admin --admin_email=admin@mosk.local --skip-email --admin_password=password
                     docker-compose run --rm cli wp language core install ru_RU && docker-compose run --rm cli wp language core activate ru_RU
                     EOF
