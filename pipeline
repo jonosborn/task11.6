@@ -12,8 +12,7 @@ pipeline {
                 echo "============== start buildin image =============="
                 dir ('docker'){
                     sh """
-                    ssh jenkins@prod1
-                    mkdir /home/jenkins/docker                                       
+                    ssh jenkins@prod1 'mkdir /home/jenkins/docker'                                                          
                     scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml"
                     scp -r ./.env jenkins@prod1:/home/jenkins/docker/.env"                    
                     ssh jenkins@prod1 
