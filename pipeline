@@ -12,15 +12,14 @@ pipeline {
                 echo "============== start buildin image =============="
                 dir ('docker'){
                     sh """
-                    ssh jenkins@prod1 'hostname && if [-e /home/jenkins/docker ]; then
-                    echo "directory exists!"
+                    ssh jenkins@prod1 "hostname && if [ -d "/home/jenkins/docker" ]; then
+                    echo 'directory exists!'
                     else 
                     mkdir /home/jenkins/docker
-                    fi'
-                    scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml"
-                    scp -rp ./.env jenkins@prod1:/home/jenkins/docker/.env"                    
-                    ssh jenkins@prod1 
-                    cd /home/jenkins/docker
+                    fi"
+                    scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml
+                    scp -rp ./.env jenkins@prod1:/home/jenkins/docker/.env
+                    ssh jenkins@prod1
                     docker-compose up -d
                     sleep 5
                     sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
