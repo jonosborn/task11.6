@@ -13,6 +13,7 @@ pipeline {
                 dir ('docker'){
                     sh """
                     ssh jenkins@prod1 'sh -c /bin/bash'
+                    hostname
                     if [-e /home/jenkins/docker ]; then
                     echo "directory exists!"
                     else 
