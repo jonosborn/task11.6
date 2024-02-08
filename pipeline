@@ -21,6 +21,7 @@ pipeline {
                     scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml
                     scp -rp ./.env jenkins@prod1:/home/jenkins/docker/.env
                     ssh jenkins@prod1 <<EOF
+                    cd /home/jenkins/docker
                     docker-compose up -d
                     sleep 5
                     sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
