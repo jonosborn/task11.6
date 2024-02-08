@@ -12,7 +12,7 @@ pipeline {
                 echo "============== start buildin image =============="
                 dir ('docker'){
                     sh """
-                    ssh jenkins@prod1 "hostname && if [ -d "/home/jenkins/docker" ]; then
+                    ssh jenkins@prod1 "if [ -d "/home/jenkins/docker" ]; then
                     echo 'directory exists!'
                     else 
                     mkdir /home/jenkins/docker
