@@ -20,12 +20,13 @@ pipeline {
                     EOF
                     scp -rp ./docker-compose.yml jenkins@prod1:/home/jenkins/docker/docker-compose.yml
                     scp -rp ./.env jenkins@prod1:/home/jenkins/docker/.env
-                    ssh jenkins@prod1
+                    ssh jenkins@prod1 <<EOF
                     docker-compose up -d
                     sleep 5
                     sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
                     docker-compose run --rm cli wp core install --url=localhost:8000 --title=test --admin_name=admin --admin_email=admin@dmosk.local --skip-email --admin_password=password
                     docker-compose run --rm cli wp language core install ru_RU && docker-compose run --rm cli wp language core activate ru_RU
+                    EOF
                     """.stripIndent()
                 }   
             }
